@@ -1,29 +1,23 @@
+const ZOOM = 10;
 const MAXITER = 360;
 const MINX = -2.00, MAXX = 1.00;
 const MINY = -1.25, MAXY = 1.25;
 
 let minx = MINX, maxx = MAXX;
 let miny = MINY, maxy = MAXY;
+let reset;
 
 function mousePressed() {
 	const px = mouseX;
 	const py = mouseY;
 	if (px >= 0 && px < width && py >= 0 && py < height) {
-		if (mouseButton === CENTER) {
-			minx = MINX; maxx = MAXX;
-			miny = MINY; maxy = MAXY;
-			mandelbrot();
-			return false;
-		}
 		const a = map(px, 0, width, minx, maxx);
 		const b = map(py, 0, height, miny, maxy);
 		const len = Math.hypot(a, b);
 		if (len < 2) {
-			let factor = 0.1;
-			// if (mouseButton === RIGHT)
-			// 	factor = 1 / factor;
-			const w = (maxx - minx) * factor / 2;
-			const h = (maxy - miny) * factor / 2;
+			let factor = 0.5 / ZOOM;
+			const w = (maxx - minx) * factor;
+			const h = (maxy - miny) * factor;
 			minx = a - w;
 			maxx = a + w;
 			miny = b - h;
@@ -45,7 +39,7 @@ function mandelbrot() {
 			let i = 0;
 			let a = ca, b = cb;
 			let len = Math.hypot(a, b);
-			const alph = max(0, map(len, 0, 2, 255, 10));
+			const alph = max(0, map(len, 0, 2, 255, 15));
 			while (i < MAXITER && len <= 2) {
 				const a1 = a*a - b*b + ca;
 				const b1 = 2*a*b + cb;
@@ -80,5 +74,11 @@ function setup() {
 	pixelDensity(1);
 	createCanvas(900, 750);
 	colorMode(HSB);
+	reset = createButton('Reset');
+	reset.mousePressed(() => {
+		minx = MINX; maxx = MAXX;
+		miny = MINY; maxy = MAXY;
+		mandelbrot();
+	});
 	mandelbrot();
 }
