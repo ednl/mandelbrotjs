@@ -19,11 +19,11 @@ function mousePressed() {
 		const b = map(py, 0, height, miny, maxy);
 		const len = Math.hypot(a, b);
 		if (len < 2) {
-			let zoom = 10;
-			if (mouseButton === LEFT)
-				zoom = 1 / zoom;
-			const w = (maxx - minx) * zoom / 2;
-			const h = (maxy - miny) * zoom / 2;
+			let factor = 0.1;
+			if (mouseButton === RIGHT)
+				factor = 1 / factor;
+			const w = (maxx - minx) * factor / 2;
+			const h = (maxy - miny) * factor / 2;
 			minx = a - w;
 			maxx = a + w;
 			miny = b - h;
