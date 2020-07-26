@@ -20,8 +20,8 @@ function mousePressed() {
 		const len = Math.hypot(a, b);
 		if (len < 2) {
 			let factor = 0.1;
-			if (mouseButton === RIGHT)
-				factor = 1 / factor;
+			// if (mouseButton === RIGHT)
+			// 	factor = 1 / factor;
 			const w = (maxx - minx) * factor / 2;
 			const h = (maxy - miny) * factor / 2;
 			minx = a - w;
