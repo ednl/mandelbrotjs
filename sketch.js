@@ -5,7 +5,7 @@ const MINY = -1.25, MAXY = 1.25;
 
 let minx = MINX, maxx = MAXX;
 let miny = MINY, maxy = MAXY;
-let reset;
+let reset, save;
 
 function mousePressed() {
 	const px = mouseX;
@@ -80,5 +80,7 @@ function setup() {
 		miny = MINY; maxy = MAXY;
 		mandelbrot();
 	});
+	save = createButton('Save');
+	save.mousePressed(() => saveCanvas('mandelbrot', 'jpg'));
 	mandelbrot();
 }
